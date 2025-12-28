@@ -1,6 +1,6 @@
 const {test, expect} = require('@playwright/test');
 
-test.only('Assignment', async ({page}) => {
+test.only('Assignment Tests', async ({page}) => {
     const userName = page.locator('input#userEmail');
     const password = page.locator('input#userPassword');
     const signInBtn = page.locator('input#login');
@@ -17,7 +17,8 @@ test.only('Assignment', async ({page}) => {
     // console.log(await cardTitles.last().textContent());
 
     //wait for network idle state so we can see all the cards are loaded. no need to wait for first element to be loaded
-    await page.waitForLoadState('networkidle');
+    await cardTitles.first().waitFor();
+    await page.waitForLoadState('networkidle'); // discouraged as it is flaky sometimes
  
     let allTitles = await cardTitles.allTextContents();
     console.log(allTitles);
